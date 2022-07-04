@@ -10,7 +10,7 @@ import HomeContainer from './containers/HomeContainer';
 
 class App extends Component {
 
-  renderHome = () => <h1>Home</h1>
+  renderHome = () => <HomeContainer />
 
   renderCustomerContainer = () => <h1>Customer Container</h1>
 
@@ -40,7 +40,7 @@ class App extends Component {
       // </Router>
       <Router>
         <Routes>
-          <Route exact path="/" element={<HomeContainer />}></Route>
+          <Route exact path="/" element={this.renderHome()}></Route>
           <Route exact path="/customers" element={this.renderCustomerListContainer()}></Route>
           <Route path="/customers/new" element={this.renderCustomerNewContainer()}></Route>
           <Route path="/customers/:dni" element={this.renderCustomerContainer()}></Route>

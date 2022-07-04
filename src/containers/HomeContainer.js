@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import AppFrame from '../components/AppFrame'
 import CustomersActions from '../components/CustomersActions'
 
@@ -9,28 +9,31 @@ import CustomersActions from '../components/CustomersActions'
 <Link to="/customers">Listado de Clientes</Link>
 */
 
-class HomeContainer extends Component {
+const HomeContainer = () => {
 
-    handlerClick = () => {
-        console.log("handlerClick")
+    const navigate = useNavigate();
+
+    const handlerClick = () => {
+        console.log("handlerClick");
+        //this.props.history.push('/customers');        
+        navigate('/customers');
     }
 
-    render() {
-        return (
-            <div>
-                <AppFrame
-                    header='Home'
-                    body={
-                        <div>
-                            Esta es la Pantalla Inicial
-                            <CustomersActions>
-                                <button onClick={this.handlerClick}>Listado de Clientes</button>
-                            </CustomersActions>
-                        </div>
-                    }></AppFrame>
-            </div>
-        )
-    }
+    return (
+        <div>
+            <AppFrame
+                header='Home'
+                body={
+                    <div>
+                        Esta es la Pantalla Inicial
+                        <CustomersActions>
+                            <button onClick={handlerClick}>Listado de Clientes</button>
+                        </CustomersActions>
+                    </div>
+                }></AppFrame>
+        </div>
+    )
+
 }
 
 HomeContainer.propTypes = {
