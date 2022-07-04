@@ -1,5 +1,10 @@
 import { Component } from 'react';
-import { Link, BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import {
+  Link,
+  BrowserRouter as Router,
+  Route,
+  Switch
+} from 'react-router-dom'
 import logo from './logo.svg';
 import './App.css';
 
@@ -23,12 +28,14 @@ class App extends Component {
       //   </div>
       // </Router>
       <Router>
-        <Routes>
-          <Route exact path="/" element={this.renderHome()}></Route>
-          <Route exact path="/customers" element={this.renderCustomerListContainer()}></Route>
-          <Route exact path="/customers/:dni" element={this.renderCustomerContainer()}></Route>
-          <Route exact path="/customers/new" element={this.renderCustomerNewContainer()}></Route>
-        </Routes>
+        <div>
+          <Route exact path="/" component={this.renderHome}></Route>
+          <Route exact path="/customers" component={this.renderCustomerListContainer}></Route>
+          <Switch>
+            <Route path="/customers/new" component={this.renderCustomerNewContainer}></Route>
+            <Route path="/customers/:dni" component={this.renderCustomerContainer}></Route>
+          </Switch>
+        </div>
       </Router>
     )
   };
