@@ -1,12 +1,12 @@
 import { Component } from 'react';
 import {
-  Link,
   BrowserRouter as Router,
   Route,
-  Switch
+  Routes
 } from 'react-router-dom'
 import logo from './logo.svg';
 import './App.css';
+import HomeContainer from './containers/HomeContainer';
 
 class App extends Component {
 
@@ -27,15 +27,24 @@ class App extends Component {
       //     <Link to="/customers/1">Customer 1</Link>
       //   </div>
       // </Router>
+      
+      // <Router>
+      //   <div>
+      //     <Route exact path="/" component={HomeContainer}></Route>
+      //     <Route exact path="/customers" component={this.renderCustomerListContainer}></Route>
+      //     <Switch>
+      //       <Route path="/customers/new" component={this.renderCustomerNewContainer}></Route>
+      //       <Route path="/customers/:dni" component={this.renderCustomerContainer}></Route>
+      //     </Switch>
+      //   </div>
+      // </Router>
       <Router>
-        <div>
-          <Route exact path="/" component={this.renderHome}></Route>
-          <Route exact path="/customers" component={this.renderCustomerListContainer}></Route>
-          <Switch>
-            <Route path="/customers/new" component={this.renderCustomerNewContainer}></Route>
-            <Route path="/customers/:dni" component={this.renderCustomerContainer}></Route>
-          </Switch>
-        </div>
+        <Routes>
+          <Route exact path="/" element={<HomeContainer />}></Route>
+          <Route exact path="/customers" element={this.renderCustomerListContainer()}></Route>
+          <Route path="/customers/new" element={this.renderCustomerNewContainer()}></Route>
+          <Route path="/customers/:dni" element={this.renderCustomerContainer()}></Route>
+        </Routes>
       </Router>
     )
   };
