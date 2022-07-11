@@ -21,8 +21,8 @@ const CustomerListItem = ({name, dni, editAction, delAction, urlPath}) => {
 }
 
 CustomerListItem.propTypes = {
-    name: PropTypes.string.isRequired,
     dni: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
     editAction: PropTypes.string.isRequired,
     delAction: PropTypes.string.isRequired,
     urlPath: PropTypes.string.isRequired
