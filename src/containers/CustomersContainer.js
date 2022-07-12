@@ -7,24 +7,6 @@ import CustomersActions from '../components/CustomersActions'
 import { useNavigate } from 'react-router-dom'
 import { fetchCustomers } from '../actions/fetchCustomers'
 
-const customers = [
-    {
-        "dni": "76173874",
-        "name": "Irwin Estrada",
-        "age": 28
-    },
-    {
-        "dni": "11111111",
-        "name": "Qwerty Qwerty",
-        "age": 30
-    },
-    {
-        "dni": "22222222",
-        "name": "Azerty Azerty",
-        "age": 35
-    }
-];
-
 export class CustomersContainer extends Component {
 
     componentDidMount() {
@@ -54,15 +36,24 @@ export class CustomersContainer extends Component {
             <div>
                 <AppFrame
                     header='Listado de Clientes'
-                    body={this.renderBody(customers)}></AppFrame>
+                    body={this.renderBody(this.props.customers)}></AppFrame>
             </div>
         )
     }
 }
 
 CustomersContainer.propTypes = {
-    fetchCustomers: PropTypes.func.isRequired
+    fetchCustomers: PropTypes.func.isRequired,
+    customers: PropTypes.array.isRequired
 };
+
+CustomersContainer.defaultProps = {
+    customers: []
+};
+
+const mapStateToProps = state => ({
+    customers: state.customers
+})
 
 // const mapDispatchToProps = dispatch => ({
 //     fetchCustomers: () => dispatch(fetchCustomers())
@@ -70,7 +61,7 @@ CustomersContainer.propTypes = {
 
 const mapDispatchToProps = { fetchCustomers };
 
-export default connect(null, mapDispatchToProps)(function (props) {
+export default connect(mapStateToProps, mapDispatchToProps)(function (props) {
     const navigate = useNavigate();
     return <CustomersContainer {...props} navigate={navigate} />
 })
