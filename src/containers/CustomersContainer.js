@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import AppFrame from '../components/AppFrame'
 import CustomersList from '../components/CustomersList'
 import CustomersActions from '../components/CustomersActions'
 import { useNavigate } from 'react-router-dom'
+import { fetchCustomers } from '../actions/fetchCustomers'
 
 const customers = [
     {
@@ -24,6 +26,10 @@ const customers = [
 ];
 
 export class CustomersContainer extends Component {
+
+    componentDidMount() {
+        this.props.fetchCustomers();
+    }
 
     handlerAddNew = () => {
         const { navigate } = this.props;
@@ -55,10 +61,14 @@ export class CustomersContainer extends Component {
 }
 
 CustomersContainer.propTypes = {
-
+    fetchCustomers: PropTypes.func.isRequired
 };
 
-export default function (props) {
+const mapDispatchToProps = dispatch => ({
+    fetchCustomers: () => dispatch(fetchCustomers())
+})
+
+export default connect(null, mapDispatchToProps)(function (props) {
     const navigate = useNavigate();
     return <CustomersContainer {...props} navigate={navigate} />
-}
+})

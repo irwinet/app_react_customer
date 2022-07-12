@@ -45,6 +45,8 @@ class App extends Component {
           <Route exact path="/customers" element={this.renderCustomerListContainer()}></Route>
           <Route path="/customers/new" element={this.renderCustomerNewContainer()}></Route>
           <Route path="/customers/:dni" element={this.renderCustomerContainer()}></Route>
+          <Route path="/customers/:dni/edit" element={this.renderCustomerContainer()}></Route>
+          <Route path="/customers/:dni/del" element={this.renderCustomerContainer()}></Route>
         </Routes>
       </Router>
     )
