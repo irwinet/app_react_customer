@@ -6,6 +6,7 @@ import CustomersList from '../components/CustomersList'
 import CustomersActions from '../components/CustomersActions'
 import { useNavigate } from 'react-router-dom'
 import { fetchCustomers } from '../actions/fetchCustomers'
+import { getCustomers } from './../selectors/customers'
 
 export class CustomersContainer extends Component {
 
@@ -52,7 +53,7 @@ CustomersContainer.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-    customers: state.customers
+    customers: getCustomers(state)
 })
 
 // const mapDispatchToProps = dispatch => ({
