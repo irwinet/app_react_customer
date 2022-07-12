@@ -64,9 +64,11 @@ CustomersContainer.propTypes = {
     fetchCustomers: PropTypes.func.isRequired
 };
 
-const mapDispatchToProps = dispatch => ({
-    fetchCustomers: () => dispatch(fetchCustomers())
-})
+// const mapDispatchToProps = dispatch => ({
+//     fetchCustomers: () => dispatch(fetchCustomers())
+// })
+
+const mapDispatchToProps = { fetchCustomers };
 
 export default connect(null, mapDispatchToProps)(function (props) {
     const navigate = useNavigate();
