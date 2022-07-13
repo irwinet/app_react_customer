@@ -8,12 +8,13 @@ import logo from './logo.svg';
 import './App.css';
 import HomeContainer from './containers/HomeContainer';
 import CustomersContainer from './containers/CustomersContainer';
+import CustomerContainer from './containers/CustomerContainer';
 
 class App extends Component {
 
   renderHome = () => <HomeContainer />
 
-  renderCustomerContainer = () => <h1>Customer Container</h1>
+  renderCustomerContainer = () => <CustomerContainer dato="123" />
 
   renderCustomerListContainer = () => <CustomersContainer />
 
