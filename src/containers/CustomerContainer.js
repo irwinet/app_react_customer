@@ -24,7 +24,7 @@ class CustomerContainer extends Component {
 
         // debugger;
         const CustomerControl = this.props.location.pathname.includes('edit') ? CustomerEdit: CustomerData;
-        return <CustomerControl {...this.props.customer} />
+        return <CustomerControl initialValues={this.props.customer} />
         
         // <Routes>
         //     <Route exact path='/customers/:dni' children={() => <p>No es edicion</p>} />

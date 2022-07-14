@@ -1,11 +1,21 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { reduxForm, Field } from 'redux-form'
+import { connect } from 'react-redux'
+import { compose } from 'redux';
+
+function withRouter(Component) {
+    function ComponentWithRouter(props) {
+        //   debugger;
+        return <Component {...props} />
+    }
+    return ComponentWithRouter
+}
 
 const CustomerEdit = ({ name, dni, age }) => {
     return (
         <div>
-            <h2>Edición del Cliente</h2>            
+            <h2>Edición del Cliente</h2>
             <form action="">
                 <div>
                     <label htmlFor="name">Nombre</label>
@@ -30,4 +40,14 @@ CustomerEdit.propTypes = {
     age: PropTypes.number
 }
 
-export default reduxForm({ form: 'CustomerEdit' })(CustomerEdit)
+const CustomerEditForm = reduxForm({ form: 'CustomerEdit' })(CustomerEdit)
+
+export default compose(
+    withRouter,              // <-- injects a params prop
+    connect(
+        (state, { initialValues }) => ({ initialValues })
+    ) // <-- props.params accessible
+)(CustomerEditForm);
+
+// export default connect(
+//     (state, props) => ({initialValues:props}))(CustomerEditForm)
