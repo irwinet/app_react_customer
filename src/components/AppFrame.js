@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import AppHeader from './AppHeader'
 
 const AppFrame = ({header, body}) => {
+  // debugger;
   return (
     <div>
         <div className='app-frame'>
