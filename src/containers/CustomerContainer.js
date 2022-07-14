@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import AppFrame from './../components/AppFrame'
 import { useParams } from 'react-router-dom';
-import { getCustomers } from './../selectors/customers'
+import { getCustomerByDni, getCustomers } from './../selectors/customers'
 import { compose } from 'redux';
 
 function withRouter(Component) {
@@ -43,7 +43,7 @@ CustomerContainer.propTypes = {
 }
 
 const mapStateToProps = (state, { params }) => ({
-    customer: getCustomers(state).find(c => c.dni === params.dni)
+    customer: getCustomerByDni(state, params)
 });
 
 //export default connect(mapStateToProps, null)(withRouter(CustomerContainer))

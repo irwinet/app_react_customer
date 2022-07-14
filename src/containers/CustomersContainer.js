@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 import { fetchCustomers } from '../actions/fetchCustomers'
 import { getCustomers } from './../selectors/customers'
 
-export class CustomersContainer extends Component {
+class CustomersContainer extends Component {
 
     componentDidMount() {
         this.props.fetchCustomers();
