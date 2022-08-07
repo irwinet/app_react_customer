@@ -35,7 +35,7 @@ class CustomerContainer extends Component {
         return this.props.updateCustomer(id, values);
     }
 
-    handleOnBack = () => this.props.navigate(-1);
+    handleOnBack = () => this.props.navigate('/customers');
 
     handleOnSubmitSuccess= () => this.props.navigate(-1);
 
