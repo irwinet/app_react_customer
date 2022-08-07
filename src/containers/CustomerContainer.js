@@ -41,7 +41,12 @@ class CustomerContainer extends Component {
             });
     }
 
-    handleOnBack = () => this.props.navigate('/customers');
+    handleOnBack = () => {
+        var answer = window.confirm("Se perderan los datos si continua");
+        if(answer){        
+            this.props.navigate('/customers');
+        }        
+    }
 
     handleOnSubmitSuccess= () => this.props.navigate(-1);
 

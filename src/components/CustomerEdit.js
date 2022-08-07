@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { compose } from 'redux';
 import { setPropAsInitial } from '../helpers/setPropsAsInitial';
 import CustomersActions from './CustomersActions'
+// import { Prompt } from 'react-router-dom';
 
 function withRouter(Component) {
     function ComponentWithRouter(props) {
@@ -48,7 +49,7 @@ const toUpper = value => value && value.toUpperCase();
 const toLower = value => value && value.toLowerCase();
 const onlyGrow = (value, previusValue, values) => value && previusValue && (value>previusValue?value:previusValue)
 
-const CustomerEdit = ({ name, dni, age, handleSubmit, submitting, onBack }) => {
+const CustomerEdit = ({ name, dni, age, handleSubmit, submitting, onBack, pristine, submitSucceeded }) => {
     return (
         <div>
             <h2>Edición del Cliente</h2>
@@ -75,9 +76,12 @@ const CustomerEdit = ({ name, dni, age, handleSubmit, submitting, onBack }) => {
                     parse={toNumber}
                     normalize={onlyGrow}></Field>       
                 <CustomersActions>
-                    <button type="submit" disabled={submitting}>Aceptar</button>    
-                    <button onClick={onBack}>Cancelar</button>
-                </CustomersActions>         
+                    <button type="submit" disabled={pristine || submitting}>Aceptar</button>    
+                    <button type="button" disabled={submitting} onClick={onBack}>Cancelar</button>
+                </CustomersActions>
+                {/* <Prompt
+                    when={!pristine && !submitSucceeded}
+                    message="Se perderan los datos si continua"></Prompt>          */}
             </form>
         </div>
     )
