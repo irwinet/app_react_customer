@@ -20,11 +20,15 @@ function withRouter(Component) {
 
 class CustomerContainer extends Component {
 
+    handleSubmit = values => {
+        console.log(JSON.stringify(values))
+    }
+
     renderBody = () => {
 
         // debugger;
         const CustomerControl = this.props.location.pathname.includes('edit') ? CustomerEdit: CustomerData;
-        return <CustomerControl initialValues={this.props.customer} />
+        return <CustomerControl initialValues={this.props.customer} onSubmit={this.handleSubmit} />
         
         // <Routes>
         //     <Route exact path='/customers/:dni' children={() => <p>No es edicion</p>} />

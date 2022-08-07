@@ -4,6 +4,7 @@ import { reduxForm, Field } from 'redux-form'
 import { connect } from 'react-redux'
 import { compose } from 'redux';
 import { setPropAsInitial } from '../helpers/setPropsAsInitial';
+import CustomersActions from './CustomersActions'
 
 function withRouter(Component) {
     function ComponentWithRouter(props) {
@@ -42,11 +43,11 @@ const MyField = ({input, meta, type, label, name}) => (
     </div>
 )
 
-const CustomerEdit = ({ name, dni, age }) => {
+const CustomerEdit = ({ name, dni, age, handleSubmit, submitting }) => {
     return (
         <div>
             <h2>Edición del Cliente</h2>
-            <form action="">                                  
+            <form onSubmit={handleSubmit}>                                  
                 <Field 
                     name='name' 
                     component={MyField}
@@ -63,7 +64,10 @@ const CustomerEdit = ({ name, dni, age }) => {
                     component={MyField} 
                     type="number"
                     validate={isNumber}
-                    label="Edad"></Field>                
+                    label="Edad"></Field>       
+                <CustomersActions>
+                    <button type="submit" disabled={submitting}>Aceptar</button>    
+                </CustomersActions>         
             </form>
         </div>
     )
