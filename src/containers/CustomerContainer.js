@@ -7,6 +7,7 @@ import { getCustomerByDni, getCustomers } from './../selectors/customers'
 import { compose } from 'redux';
 import CustomerEdit from './../components/CustomerEdit'
 import CustomerData from './../components/CustomerData'
+import {fetchCustomers} from './../actions/fetchCustomers';
 
 function withRouter(Component) {
     function ComponentWithRouter(props) {
@@ -20,6 +21,12 @@ function withRouter(Component) {
 }
 
 class CustomerContainer extends Component {
+
+    componentDidMount(){
+        if(!this.props.customer){
+            this.props.fetchCustomers();
+        }
+    }
 
     handleSubmit = values => {
         console.log(JSON.stringify(values))
@@ -68,7 +75,8 @@ class CustomerContainer extends Component {
 
 CustomerContainer.propTypes = {
     //dni: PropTypes.string.isRequired,
-    //customer: PropTypes.object.isRequired
+    //customer: PropTypes.object.isRequired,
+    fetchCustomers: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state, { params }) => ({
@@ -79,7 +87,9 @@ const mapStateToProps = (state, { params }) => ({
 
 export default compose(
     withRouter,              // <-- injects a params prop
-    connect(mapStateToProps) // <-- props.params accessible
+    connect(mapStateToProps, {
+        fetchCustomers
+    }) // <-- props.params accessible
   )(CustomerContainer);
 
 // export default compose(
