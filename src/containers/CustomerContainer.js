@@ -8,6 +8,7 @@ import { compose } from 'redux';
 import CustomerEdit from './../components/CustomerEdit'
 import CustomerData from './../components/CustomerData'
 import {fetchCustomers} from './../actions/fetchCustomers';
+import {updateCustomer} from './../actions/updateCustomer';
 
 function withRouter(Component) {
     function ComponentWithRouter(props) {
@@ -29,7 +30,9 @@ class CustomerContainer extends Component {
     }
 
     handleSubmit = values => {
-        console.log(JSON.stringify(values))
+        console.log(JSON.stringify(values));
+        const {id} = values;
+        this.props.updateCustomer(id, values);
     }
 
     handleOnBack = () => this.props.navigate(-1);
@@ -76,7 +79,8 @@ class CustomerContainer extends Component {
 CustomerContainer.propTypes = {
     //dni: PropTypes.string.isRequired,
     //customer: PropTypes.object.isRequired,
-    fetchCustomers: PropTypes.func.isRequired
+    fetchCustomers: PropTypes.func.isRequired,
+    updateCustomer: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state, { params }) => ({
@@ -88,7 +92,8 @@ const mapStateToProps = (state, { params }) => ({
 export default compose(
     withRouter,              // <-- injects a params prop
     connect(mapStateToProps, {
-        fetchCustomers
+        fetchCustomers,
+        updateCustomer
     }) // <-- props.params accessible
   )(CustomerContainer);
 
