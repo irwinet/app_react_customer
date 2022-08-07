@@ -32,10 +32,12 @@ class CustomerContainer extends Component {
     handleSubmit = values => {
         console.log(JSON.stringify(values));
         const {id} = values;
-        this.props.updateCustomer(id, values);
+        return this.props.updateCustomer(id, values);
     }
 
     handleOnBack = () => this.props.navigate(-1);
+
+    handleOnSubmitSuccess= () => this.props.navigate(-1);
 
     renderBody = () => {
 
@@ -44,6 +46,7 @@ class CustomerContainer extends Component {
         return <CustomerControl 
             initialValues={this.props.customer} 
             onSubmit={this.handleSubmit}
+            onSubmitSuccess={this.handleOnSubmitSuccess}
             onBack={this.handleOnBack} />
         
         // <Routes>

@@ -7,16 +7,22 @@
       "age": 28
     },
     {
-      "id": "11111111",
       "dni": "11111111",
-      "name": "Prueba Prueba",
-      "age": 30
+      "name": "Prueba2 Prueba2",
+      "age": 30,
+      "id": "11111111"
     },
     {
       "id": "22222222",
       "dni": "22222222",
       "name": "Juan Perez",
       "age": 35
+    },
+    {
+      "dni": "33333333",
+      "name": "Nuevo Cliente2",
+      "age": 30,
+      "id": "HVbCqd7"
     }
   ],
   "posts": [
