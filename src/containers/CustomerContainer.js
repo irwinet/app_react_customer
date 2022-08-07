@@ -9,6 +9,7 @@ import CustomerEdit from './../components/CustomerEdit'
 import CustomerData from './../components/CustomerData'
 import {fetchCustomers} from './../actions/fetchCustomers';
 import {updateCustomer} from './../actions/updateCustomer';
+import { SubmissionError } from 'redux-form';
 
 function withRouter(Component) {
     function ComponentWithRouter(props) {
@@ -32,7 +33,12 @@ class CustomerContainer extends Component {
     handleSubmit = values => {
         console.log(JSON.stringify(values));
         const {id} = values;
-        return this.props.updateCustomer(id, values);
+        return this.props.updateCustomer(id, values)
+            .then(r => {
+                if(r.payload && r.payload.error){
+                    throw new SubmissionError(r.payload.error)
+                }
+            });
     }
 
     handleOnBack = () => this.props.navigate('/customers');
