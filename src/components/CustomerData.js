@@ -1,7 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { compose } from 'redux';
+import { connect } from 'react-redux'
+import CustomersActions from './CustomersActions'
 
-const CustomerData = ({ name, dni, age }) => {
+function withRouter(Component) {
+    function ComponentWithRouter(props) {
+        //   debugger;
+        return <Component {...props} {...props.initialValues} />
+    }
+    return ComponentWithRouter
+}
+
+const CustomerData = ({ name, dni, age, onBack }) => {
     return (
         <div>
             <div className='customer-data'>
@@ -19,6 +30,9 @@ const CustomerData = ({ name, dni, age }) => {
                     <i>{age}</i>
                 </div>
             </div>
+            <CustomersActions>  
+                    <button onClick={onBack}>Volver</button>
+            </CustomersActions>  
         </div>
     )
 }
@@ -26,7 +40,15 @@ const CustomerData = ({ name, dni, age }) => {
 CustomerData.propTypes = {
     name: PropTypes.string.isRequired,
     dni: PropTypes.string.isRequired,
-    age: PropTypes.number
+    age: PropTypes.number,
+    onBack: PropTypes.func.isRequired
 }
 
-export default CustomerData
+export default compose(
+    withRouter,              // <-- injects a params prop
+    connect(
+        (state, { initialValues }) => ({ initialValues })
+    ) // <-- props.params accessible
+)(CustomerData);
+
+// export default CustomerData

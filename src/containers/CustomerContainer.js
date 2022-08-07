@@ -12,8 +12,9 @@ function withRouter(Component) {
     function ComponentWithRouter(props) {
       let params = useParams()      
       const location = useLocation();
+      const navigate = useNavigate();
     //   debugger;
-      return <Component {...props} params={params} location={location} />
+      return <Component {...props} params={params} location={location} navigate={navigate} />
     }
     return ComponentWithRouter
 }
@@ -24,11 +25,16 @@ class CustomerContainer extends Component {
         console.log(JSON.stringify(values))
     }
 
+    handleOnBack = () => this.props.navigate(-1);
+
     renderBody = () => {
 
         // debugger;
         const CustomerControl = this.props.location.pathname.includes('edit') ? CustomerEdit: CustomerData;
-        return <CustomerControl initialValues={this.props.customer} onSubmit={this.handleSubmit} />
+        return <CustomerControl 
+            initialValues={this.props.customer} 
+            onSubmit={this.handleSubmit}
+            onBack={this.handleOnBack} />
         
         // <Routes>
         //     <Route exact path='/customers/:dni' children={() => <p>No es edicion</p>} />
