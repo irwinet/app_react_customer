@@ -9,6 +9,7 @@ import CustomerEdit from './../components/CustomerEdit'
 import CustomerData from './../components/CustomerData'
 import {fetchCustomers} from './../actions/fetchCustomers';
 import {updateCustomer} from './../actions/updateCustomer';
+import {deleteCustomer} from './../actions/deleteCustomer';
 import { SubmissionError } from 'redux-form';
 
 function withRouter(Component) {
@@ -48,8 +49,11 @@ class CustomerContainer extends Component {
         }        
     }
 
-    handleOnDelete= () =>{
+    handleOnDelete= (id) =>{
         console.log('handleOnDelete')
+        this.props.deleteCustomer(id).then(v => {
+            this.props.navigate('/customers');
+        });
     }
 
     handleOnSubmitSuccess= () => this.props.navigate(-1);
@@ -106,7 +110,8 @@ CustomerContainer.propTypes = {
     //dni: PropTypes.string.isRequired,
     //customer: PropTypes.object.isRequired,
     fetchCustomers: PropTypes.func.isRequired,
-    updateCustomer: PropTypes.func.isRequired
+    updateCustomer: PropTypes.func.isRequired,
+    deleteCustomer: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state, { params }) => ({
@@ -119,7 +124,8 @@ export default compose(
     withRouter,              // <-- injects a params prop
     connect(mapStateToProps, {
         fetchCustomers,
-        updateCustomer
+        updateCustomer,
+        deleteCustomer
     }) // <-- props.params accessible
   )(CustomerContainer);
 

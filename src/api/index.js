@@ -24,3 +24,14 @@ export const apiPost = (url, obj) => fetch(`${url}`, {
     }
     return r;
 })
+
+export const apiDelete = (url, id) => fetch(`${url}/${id}`, {
+    method: 'DELETE',
+    headers: new Headers({'Content-type':'application/json'})
+}).then(v => v.json())
+.then(r => {
+    if(r.error){
+        return new Error(r.validation)
+    }
+    return id;
+})
