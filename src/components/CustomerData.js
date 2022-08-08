@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import { compose } from 'redux';
 import { connect } from 'react-redux'
 import CustomersActions from './CustomersActions'
+import { accessControl } from '../helpers/accessControl';
+import { CUSTOMER_VIEW } from '../constants/permissions';
 
 function withRouter(Component) {
     function ComponentWithRouter(props) {
@@ -50,11 +52,11 @@ CustomerData.propTypes = {
     isDeleteAllow: PropTypes.bool
 }
 
-export default compose(
+export default accessControl([CUSTOMER_VIEW])(compose(
     withRouter,              // <-- injects a params prop
     connect(
         (state, { initialValues }) => ({ initialValues })
     ) // <-- props.params accessible
-)(CustomerData);
+)(CustomerData));
 
 // export default CustomerData

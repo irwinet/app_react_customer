@@ -5,6 +5,8 @@ import { connect } from 'react-redux'
 import { compose } from 'redux';
 import { setPropAsInitial } from '../helpers/setPropsAsInitial';
 import CustomersActions from './CustomersActions'
+import { accessControl } from '../helpers/accessControl';
+import { CUSTOMER_EDIT } from '../constants/permissions';
 // import { Prompt } from 'react-router-dom';
 
 function withRouter(Component) {
@@ -118,12 +120,12 @@ const CustomerEditForm = reduxForm(
         validate 
     })(CustomerEdit)
 
-export default compose(
+export default accessControl([CUSTOMER_EDIT])(compose(
     withRouter,              // <-- injects a params prop
     connect(
         (state, { initialValues }) => ({ initialValues })
     ) // <-- props.params accessible
-)(CustomerEditForm);
+)(CustomerEditForm));
 
 // export default setPropAsInitial(CustomerEditForm)
 
