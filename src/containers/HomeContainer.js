@@ -25,7 +25,7 @@ const HomeContainer = () => {
                 header='Home'
                 body={
                     <div>
-                        Esta es la Pantalla Inicial
+                        <img src='https://e7.pngegg.com/pngimages/1016/440/png-clipart-computer-icons-customer-service-icon-design-user-business-blue-service.png' />
                         <CustomersActions>
                             <button onClick={handlerClick}>Listado de Clientes</button>
                         </CustomersActions>
