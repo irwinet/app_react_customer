@@ -9,6 +9,7 @@ import './App.css';
 import HomeContainer from './containers/HomeContainer';
 import CustomersContainer from './containers/CustomersContainer';
 import CustomerContainer from './containers/CustomerContainer';
+import NewCustomerContainer from './containers/NewCustomerContainer';
 
 class App extends Component {
 
@@ -18,7 +19,7 @@ class App extends Component {
 
   renderCustomerListContainer = () => <CustomersContainer />
 
-  renderCustomerNewContainer = () => <h1>Customer New Container</h1>
+  renderCustomerNewContainer = () => <NewCustomerContainer />
 
   render() {
     return (

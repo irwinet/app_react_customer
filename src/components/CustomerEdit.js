@@ -47,7 +47,8 @@ const MyField = ({input, meta, type, label, name}) => (
 const toNumber = value => value && Number(value)
 const toUpper = value => value && value.toUpperCase();
 const toLower = value => value && value.toLowerCase();
-const onlyGrow = (value, previusValue, values) => value && previusValue && (value>previusValue?value:previusValue)
+const onlyGrow = (value, previusValue, values) => 
+    value && (!previusValue ? value : (value>previusValue?value:previusValue))
 
 const CustomerEdit = ({ name, dni, age, handleSubmit, submitting, onBack, pristine, submitSucceeded }) => {
     return (
