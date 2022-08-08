@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { reduxForm, Field } from 'redux-form'
 import { connect } from 'react-redux'
@@ -34,43 +34,59 @@ const validate = values => {
     return error;
 }
 
-const MyField = ({input, meta, type, label, name}) => (
-    <div>
-        <label htmlFor={name}>{label}</label>
-        <input {...input} type={!type?"text":type} />
-        {
-            meta.touched && meta.error && <span>{meta.error}</span>
-        }        
-    </div>
-)
-
 const toNumber = value => value && Number(value)
 const toUpper = value => value && value.toUpperCase();
 const toLower = value => value && value.toLowerCase();
 const onlyGrow = (value, previusValue, values) => 
     value && (!previusValue ? value : (value>previusValue?value:previusValue))
 
-const CustomerEdit = ({ name, dni, age, handleSubmit, submitting, onBack, pristine, submitSucceeded }) => {
-    return (
+class CustomerEdit extends Component{
+
+    componentDidMount(){
+        if(this.txt){
+            this.txt.focus();
+        }
+    }
+
+    renderField = ({input, meta, type, label, name, withFocus}) => {
+        const controls = {...input, value: input["value"]||""} 
+        return (
+        <div>
+            <label htmlFor={name}>{label}</label>
+            <input {...controls}
+                type={!type?"text":type}
+                ref={withFocus && (txt => this.txt = txt)} />
+            {
+                meta.touched && meta.error && <span>{meta.error}</span>
+            }        
+        </div>
+        )
+    }
+
+    render(){
+        const { handleSubmit, submitting, onBack, pristine, submitSucceeded } = this.props;
+        // const {name, dni, age} = initialValues;
+        return (
         <div>
             <h2>Edición del Cliente</h2>
             <form onSubmit={handleSubmit}>                                  
                 <Field 
+                    withFocus
                     name='name' 
-                    component={MyField}
+                    component={this.renderField}
                     type="text"
                     label="Nombre"
                     parse={toUpper}
                     format={toLower}></Field>        
                 <Field 
                     name='dni' 
-                    component={MyField} 
+                    component={this.renderField} 
                     type="text"
                     validate={isNumber}
                     label="Dni"></Field>        
                 <Field 
                     name='age' 
-                    component={MyField} 
+                    component={this.renderField} 
                     type="number"
                     validate={isNumber}
                     label="Edad"
@@ -85,7 +101,8 @@ const CustomerEdit = ({ name, dni, age, handleSubmit, submitting, onBack, pristi
                     message="Se perderan los datos si continua"></Prompt>          */}
             </form>
         </div>
-    )
+        )
+    }
 }
 
 CustomerEdit.propTypes = {
