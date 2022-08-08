@@ -12,7 +12,7 @@ function withRouter(Component) {
     return ComponentWithRouter
 }
 
-const CustomerData = ({ name, dni, age, onBack }) => {
+const CustomerData = ({ name, dni, age, onBack, isDeleteAllow, onDelete }) => {
     return (
         <div>
             <div className='customer-data'>
@@ -32,6 +32,9 @@ const CustomerData = ({ name, dni, age, onBack }) => {
             </div>
             <CustomersActions>  
                     <button onClick={onBack}>Volver</button>
+                    {
+                        isDeleteAllow && <button onClick={onDelete}>Eliminar</button>
+                    }
             </CustomersActions>  
         </div>
     )
@@ -41,7 +44,9 @@ CustomerData.propTypes = {
     name: PropTypes.string.isRequired,
     dni: PropTypes.string.isRequired,
     age: PropTypes.number,
-    onBack: PropTypes.func.isRequired
+    onBack: PropTypes.func.isRequired,
+    onDelete: PropTypes.func,
+    isDeleteAllow: PropTypes.bool
 }
 
 export default compose(

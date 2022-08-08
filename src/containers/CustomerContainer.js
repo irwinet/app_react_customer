@@ -48,17 +48,29 @@ class CustomerContainer extends Component {
         }        
     }
 
+    handleOnDelete= () =>{
+        console.log('handleOnDelete')
+    }
+
     handleOnSubmitSuccess= () => this.props.navigate(-1);
 
-    renderBody = () => {
-
-        // debugger;
-        const CustomerControl = this.props.location.pathname.includes('edit') ? CustomerEdit: CustomerData;
+    renderCustomerControl = (isEdit, isDelete)=>{
+        const CustomerControl = isEdit ? CustomerEdit: CustomerData;
         return <CustomerControl 
             initialValues={this.props.customer} 
             onSubmit={this.handleSubmit}
             onSubmitSuccess={this.handleOnSubmitSuccess}
-            onBack={this.handleOnBack} />
+            onBack={this.handleOnBack}
+            isDeleteAllow={!!isDelete}
+            onDelete={this.handleOnDelete} />
+    }
+
+    renderBody = () => {
+
+        // debugger;
+        const isEdit = this.props.location.pathname.includes('edit');
+        const isDelete = this.props.location.pathname.includes('del');
+        return this.renderCustomerControl(isEdit, isDelete);
         
         // <Routes>
         //     <Route exact path='/customers/:dni' children={() => <p>No es edicion</p>} />
