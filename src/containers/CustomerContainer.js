@@ -25,7 +25,7 @@ function withRouter(Component) {
 class CustomerContainer extends Component {
 
     componentDidMount(){
-        if(!this.props.customer.length === 0){
+        if(!this.props.customer){
             this.props.fetchCustomers();
         }
     }
