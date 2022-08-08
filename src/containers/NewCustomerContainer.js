@@ -5,6 +5,8 @@ import CustomerEdit from "../components/CustomerEdit";
 import { compose } from 'redux';
 import { connect } from 'react-redux'
 import { Route, Router, Routes, useParams, useNavigate, useLocation } from 'react-router-dom';
+import {insertCustomer} from './../actions/insertCustomer';
+import { SubmissionError } from 'redux-form';
 
 function withRouter(Component) {
     function ComponentWithRouter(props) {
@@ -18,9 +20,15 @@ function withRouter(Component) {
 }
 
 class NewCustomerContainer extends Component {
-  handleSubmit = () => {};
+  handleSubmit = (values) => {
+    return this.props.insertCustomer(values).then(r => {
+        if(r.payload && r.payload.error){
+            throw new SubmissionError(r.payload)
+        }
+    });
+  };
 
-  handleOnSubmitSuccess = () => {};
+  handleOnSubmitSuccess = () => this.props.navigate(-1);
 
   handleOnBack = () => {
     var answer = window.confirm("Se perderan los datos si continua");
@@ -51,11 +59,15 @@ class NewCustomerContainer extends Component {
   }
 }
 
-NewCustomerContainer.propTypes = {};
+NewCustomerContainer.propTypes = {
+    insertCustomer: PropTypes.func.isRequired
+};
 
 // export default NewCustomerContainer;
 
 export default compose(
     withRouter,
-    connect(null,null)
+    connect(null,{
+        insertCustomer
+    })
   )(NewCustomerContainer);
